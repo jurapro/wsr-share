@@ -2,10 +2,12 @@
 
 namespace App\Models;
 
+use App\Exceptions\ApiException;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Str;
 
 class User extends Authenticatable
@@ -53,5 +55,17 @@ class User extends Authenticatable
     public function role()
     {
         return $this->belongsTo(Role::class);
+    }
+
+    public function cart()
+    {
+        return $this->hasMany(Cart::class);
+    }
+
+    public function isUser()
+    {
+        if ($this->role->code!=='user') {
+            throw new ApiException(403,'Forbidden for you');
+        }
     }
 }

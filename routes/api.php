@@ -23,3 +23,5 @@ Route::get('products',[ProductController::class, 'index']);
 Route::get('logout',[UserController::class, 'logout'])->middleware('auth:api');
 
 Route::post('cart/{product}', [CartController::class, 'add'])->middleware('auth:api');
+Route::delete('cart/{cart}', [CartController::class, 'remove'])->middleware('auth:api');
+Route::get('cart', [CartController::class, 'index'])->middleware('auth:api');
