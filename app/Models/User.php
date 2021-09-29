@@ -21,6 +21,7 @@ class User extends Authenticatable
         'fio',
         'email',
         'password',
+        'role_id'
     ];
 
     /**
@@ -47,5 +48,10 @@ class User extends Authenticatable
         $this->api_token = Str::random();
         $this->save();
         return $this->api_token;
+    }
+
+    public function role()
+    {
+        return $this->belongsTo(Role::class);
     }
 }

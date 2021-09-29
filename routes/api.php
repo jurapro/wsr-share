@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\CartController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\UserController;
 use Illuminate\Http\Request;
@@ -20,3 +21,5 @@ Route::post('login',[UserController::class, 'login']);
 Route::post('signup',[UserController::class, 'signup']);
 Route::get('products',[ProductController::class, 'index']);
 Route::get('logout',[UserController::class, 'logout'])->middleware('auth:api');
+
+Route::post('cart/{product}', [CartController::class, 'add'])->middleware('auth:api');

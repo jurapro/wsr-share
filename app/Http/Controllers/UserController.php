@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Exceptions\ApiException;
+use App\Models\Role;
 use App\Models\User;
 use Illuminate\Http\Exceptions\HttpResponseException;
 use Illuminate\Http\Request;
@@ -52,7 +53,12 @@ class UserController extends Controller
             throw new ApiException(422, 'Validation error', $validator->errors());
         }
 
-        $user = User::create($request->all());
+        $user = User::create(
+            $request->all()
+            + [
+                'role_id' => Role::where('code', 'user')->first()->id
+            ]
+        );
 
         return [
             'data' => [
@@ -66,8 +72,8 @@ class UserController extends Controller
         Auth::user()->api_token = null;
         Auth::user()->save();
         return [
-            'data'=>[
-                'message'=>'logout'
+            'data' => [
+                'message' => 'logout'
             ]
         ];
     }
