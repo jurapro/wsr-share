@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\CartController;
+use App\Http\Controllers\OrderController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\UserController;
 use Illuminate\Http\Request;
@@ -25,3 +26,6 @@ Route::get('logout',[UserController::class, 'logout'])->middleware('auth:api');
 Route::post('cart/{product}', [CartController::class, 'add'])->middleware('auth:api');
 Route::delete('cart/{cart}', [CartController::class, 'remove'])->middleware('auth:api');
 Route::get('cart', [CartController::class, 'index'])->middleware('auth:api');
+
+Route::post('order', [OrderController::class, 'add'])->middleware('auth:api');
+Route::get('order', [OrderController::class, 'index'])->middleware('auth:api');
